@@ -54,3 +54,31 @@ A tree with only one node has a height of zero
 
 The height of the node is the length of the oath from that node to the deepest node.
 
+## Depth of a node
+
+The depth of node N is given as the length of the path from the root R to node N.
+
+The depth of the root node is 0.
+
+![image](https://github.com/smitesht/datastructures/assets/52151346/3e1f064a-0509-477d-aa67-1df44f1b0f9c)
+
+## Size of node
+
+The size of the node is the number of descendants it has including itself.
+
+## LEft Skew Tree
+
+Every node has only left child
+
+![image](https://github.com/smitesht/datastructures/assets/52151346/bd01976e-ca32-4900-8d41-a8f5d56d6945)
+
+## Right Skew Tree
+
+Every node has only right child
+
+## Skew Tree
+
+Every node in a tree has only one child called a skew tree.
+
+
+
