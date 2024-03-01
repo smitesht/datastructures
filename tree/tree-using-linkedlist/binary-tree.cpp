@@ -11,7 +11,7 @@ struct Node
     Node* pLeft;
     Node* pRight;
 
-    Node() :data(0), pLeft(nullptr),pRight(nullptr){}
+    Node() :data(0), pLeft(nullptr), pRight(nullptr) {}
     Node(int num) :data(num), pLeft(nullptr), pRight(nullptr) {}
 
 };
@@ -26,7 +26,11 @@ public:
     BinaryTree(int rootData);  // Constructor
     void insertData(int data); // Level order insertion
     void levelOrderTraverse(); // Level order traversal
-    Node* getNode(); // get root node
+    Node* getRoot(); // get root node
+    void inorderTraverseRecursion(Node* pNode);
+    void inorderTraverseNonRecursion(Node* pNode);
+    void preorderTraverseRecursion(Node* pNode);
+    void preorderTraverseNonRecursion(Node* pNode);
 };
 
 BinaryTree::BinaryTree(int rootData)
@@ -37,7 +41,7 @@ BinaryTree::BinaryTree(int rootData)
     }
 }
 
-Node* BinaryTree::getNode()
+Node* BinaryTree::getRoot()
 {
     return m_pRoot;
 }
@@ -107,6 +111,86 @@ void BinaryTree::levelOrderTraverse()
     }
 }
 
+// InOrder Traversal Recursive => Left - Data - Right
+void BinaryTree::inorderTraverseRecursion(Node* pNode)
+{
+    if (pNode == nullptr)
+        return;
+
+    inorderTraverseRecursion(pNode->pLeft);
+    cout << pNode->data<< " ";
+    inorderTraverseRecursion(pNode->pRight);    
+}
+
+// InOrder Traversal Non-Recursive => Lef - Data - Right
+void BinaryTree::inorderTraverseNonRecursion(Node* pNode)
+{
+    if (pNode == nullptr)
+        return;
+
+    stack<Node*> treeStack;
+    treeStack.push(pNode);
+
+    while (!treeStack.empty())
+    {
+        while (pNode->pLeft)
+        { 
+            pNode = pNode->pLeft;
+            treeStack.push(pNode);
+        }
+        Node* pTemp = treeStack.top();
+        treeStack.pop();
+        cout << pTemp->data<<" ";
+        if (pTemp->pRight)
+        {
+            pNode = pTemp->pRight;
+            treeStack.push(pNode);
+        }         
+    }   
+}
+
+// PreOrder Traversal => Data - Left - Right
+void BinaryTree::preorderTraverseRecursion(Node* pNode)
+{
+    if (pNode == nullptr)
+        return;
+    
+    cout << pNode->data << " ";
+    preorderTraverseRecursion(pNode->pLeft);
+    preorderTraverseRecursion(pNode->pRight);
+}
+
+void BinaryTree::preorderTraverseNonRecursion(Node* pNode)
+{
+    if (pNode == nullptr)
+        return;
+
+    stack<Node*> treeStack;
+    treeStack.push(pNode);
+
+    while (!treeStack.empty())
+    {
+        while (pNode)
+        {
+            cout << pNode->data << " ";
+            pNode = pNode->pLeft;
+            if(pNode != nullptr)
+                treeStack.push(pNode);
+        }
+
+        Node* pTemp = treeStack.top();
+        treeStack.pop();
+
+        if (pTemp->pRight)
+        {
+            pNode = pTemp->pRight;
+            treeStack.push(pNode);
+        }
+    }
+
+}
+
+
 int main()
 {
     BinaryTree t(20);
@@ -118,6 +202,13 @@ int main()
     t.insertData(15);
 
     t.levelOrderTraverse();
-
+    cout << endl;
+    t.inorderTraverseRecursion(t.getRoot());
+    cout << endl;
+    t.inorderTraverseNonRecursion(t.getRoot());
+    cout << endl;
+    t.preorderTraverseRecursion(t.getRoot());
+    cout << endl;
+    t.preorderTraverseNonRecursion(t.getRoot());
     return 0;
 }
