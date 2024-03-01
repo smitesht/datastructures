@@ -127,3 +127,44 @@ void BinaryTree::insertData(int data)
 
 ## Level order traversal.
 
+### Steps
+
+- If root node does not exist, return
+- Push root node to the Queue
+- Iterate until Queue empty
+  - Pop front node from the Queue
+  - Display Data of the popped node
+  - If left node exist of the popped node, push to the Queue
+  - If right node exist of the popped node, push to the Queue
+
+```c++
+
+void BinaryTree::levelOrderTraverse()
+{
+    if (m_pRoot == nullptr)
+    {
+        cout << "Empty Tree" << endl;
+        return;
+    }
+
+    Node* pTemp = m_pRoot;
+    queue<Node*> treeQ;
+    treeQ.push(pTemp);
+    while (!treeQ.empty())
+    {
+        Node* p = treeQ.front();
+        treeQ.pop();
+        cout << p->data << " ";
+        if (p->pLeft)
+        {
+            treeQ.push(p->pLeft);
+        }
+        if (p->pRight)
+        {
+            treeQ.push(p->pRight);
+        }
+
+    }
+}
+
+```
